@@ -1,0 +1,18 @@
+﻿<controls:MetroWindow x:Class="BlackDesertALFALauncher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        ResizeMode="NoResize"
+        Title="Black Desert TEST Launcher" Height="350" Width="650">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="resources/34.png"/>
+        </Grid.Background>
+
+        <TextBox Name="LoginBox" HorizontalAlignment="Left" controls:TextboxHelper.Watermark="Write this login" controls:TextboxHelper.ClearTextButton="True" Height="25" Margin="194,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="250"/>
+        <PasswordBox Name="PasswordBox" HorizontalAlignment="Left" controls:TextboxHelper.Watermark="Write this password" controls:TextboxHelper.ClearTextButton="True" Height="25" Margin="194,178,0,0" VerticalAlignment="Top" Width="250"/>
+        <Button Content="Auth" HorizontalAlignment="Left" Height="30" Margin="320,218,0,0" VerticalAlignment="Top" Width="124" Click="Button_Click"/>
+        <Label Content="By [Necroz Project TEAM]" HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="250" Foreground="#FF14F5E1"/>
+        <CheckBox x:Name="RememberBox" Content="Remember me?" HorizontalAlignment="Left" Margin="194,225,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</controls:MetroWindow>
