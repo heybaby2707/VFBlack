@@ -115,7 +115,6 @@ namespace BlackDesertGame.Network.Packets.Recv
             }
             return 0;
         }
-
         protected String ReadS()
         {
             Encoding encoding = Encoding.Unicode;
@@ -132,7 +131,6 @@ namespace BlackDesertGame.Network.Packets.Recv
             }
             return result;
         }
-
         protected byte[] ReadB(int length)
         {
             byte[] result = new byte[length];

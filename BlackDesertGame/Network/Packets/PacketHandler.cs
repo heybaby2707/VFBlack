@@ -48,10 +48,11 @@ namespace BlackDesertGame.Network.Packets
             {typeof (SpEnterWorldResponse), 0x0BEF},
             {typeof (SpUnk0E90), 0x0E93},
             {typeof (SpCharacterInfo),   0x0BE1},
-            {typeof (SpUnk0BF0), 0x0BF1},
+            {typeof (SpUnk0Bf0), 0x0BF1},
             {typeof (SpUnk0BFD_1), 0x0BFD},
             {typeof (SpUnk0BFD_2), 0x0BFD},
             {typeof (SpChatMessage), 0x0D5A},
+            {typeof (SpCreateCharacter), 0x0BF5},
         };
 
 

@@ -32,6 +32,8 @@ namespace BDCommon.Structures.Player
         [ProtoBuf.ProtoMember(3)]
         public string Password;
 
+        public int AccessLevel;
+
         public LoginToken LoginToken;
     }
 

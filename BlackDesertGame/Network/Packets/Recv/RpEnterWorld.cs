@@ -1,23 +1,21 @@
-﻿using BlackDesertGame.Network.Packets.Send;
+﻿using BlackDesertGame.Services;
 
 namespace BlackDesertGame.Network.Packets.Recv
 {
     class RpEnterWorld : ARecvPacket
     {
+        protected int CharacterId;
+        protected int AccountId;
+
         public override void Read()
         {
-            
+            CharacterId = ReadD();
+            AccountId = ReadD();
         }
 
         public override void Process()
         {
-            new SpEnterWorldResponse().Send(Connection);
-          
-            new SpUnk0E90().Send(Connection);
-            new SpCharacterInfo().Send(Connection, 1);
-            new SpUnk0BF0().Send(Connection, 1);
-            new SpUnk0BFD_1().Send(Connection);
-            new SpUnk0BFD_2().Send(Connection);
+            GameService.EnterInWorld(Connection, CharacterId);
         }
     }
 }

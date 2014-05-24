@@ -47,7 +47,7 @@ namespace BlackDesertGame.Network.Packets.Send
                             }
 
                             Datas = stream.ToArray();
-                            Log.Debug("Send packet '{0}'({2}) with datas:\n{1}", GetType().Name, Datas.FormatHex(), opCode.ToString("X4"));
+                            Log.Debug("Send packet '{0}'({2})({3}) with datas:\n{1}", GetType().Name, Datas.FormatHex(), opCode.ToString("X4"), Datas.Length);
                         }
                     }
                     catch (Exception ex)
@@ -113,7 +113,7 @@ namespace BlackDesertGame.Network.Packets.Send
             writer.Write(hex.ToBytes());
         }
 
-        protected void WriteSS(BinaryWriter writer, string msg)
+        protected void WriteSs(BinaryWriter writer, string msg)
         {
             WriteH(writer, (short)(msg.Length * 2 + 2));
             WriteS(writer, msg);

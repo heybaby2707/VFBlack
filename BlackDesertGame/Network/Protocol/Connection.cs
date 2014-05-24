@@ -33,8 +33,10 @@ namespace BlackDesertGame.Network.Protocol
         public IScsServerClient Client { get; set; }
         public bool IsValid { get; private set; }
         public AccountData AccountInfo { get; set; }
-
+        public List<Player> Players;
         protected List<byte[]> SendData = new List<byte[]>();
+
+        public Player CurrentPlayer { get; set; }
 
         protected int SendDataSize;
 

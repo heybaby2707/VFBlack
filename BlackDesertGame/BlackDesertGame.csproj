@@ -36,8 +36,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BDCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\BDCommon\bin\Debug\BDCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>..\libs\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="NLog">
       <HintPath>..\libs\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Npgsql">
+      <HintPath>..\libs\Npgsql.dll</HintPath>
     </Reference>
     <Reference Include="Scs">
       <HintPath>..\libs\Scs.dll</HintPath>
@@ -51,7 +61,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database\CharacterDB.cs" />
     <Compile Include="Engines\AdminEngine.cs" />
+    <Compile Include="Engines\PostgreSqlEngine\Commands\PlayerCommands.cs" />
+    <Compile Include="Engines\PostgreSqlEngine\PostgreSqlEngine.cs" />
     <Compile Include="GameServer.cs" />
     <Compile Include="Handlers\ChatHandler.cs" />
     <Compile Include="Network\Packets\PacketHandler.cs" />
@@ -64,6 +77,7 @@
     <Compile Include="Network\Packets\Send\SpCharacterInfo.cs" />
     <Compile Include="Network\Packets\Send\SpCharacterList.cs" />
     <Compile Include="Network\Packets\Send\SpChatMessage.cs" />
+    <Compile Include="Network\Packets\Send\SpCreateCharacter.cs" />
     <Compile Include="Network\Packets\Send\SpEnterWorldResponse.cs" />
     <Compile Include="Network\Packets\Send\SpUnk0BF0.cs" />
     <Compile Include="Network\Packets\Send\SpUnk0BFD_1.cs" />
@@ -77,6 +91,10 @@
     <None Include="Scripts\Chat\CmdTest.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Scripts\Chat\FakePacket.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Compile Include="Services\GameService.cs" />
     <Compile Include="Services\LoginService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -85,12 +103,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BDCommon\BDCommon.csproj">
-      <Project>{d7a053cc-63c2-4af2-b27e-bcf32c0dccb0}</Project>
-      <Name>BDCommon</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

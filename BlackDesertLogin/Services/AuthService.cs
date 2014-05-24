@@ -76,7 +76,7 @@ namespace BlackDesertLogin.Services
         {
             Log.Info("Periodic save. Accounts count: {0}", _accounts.Count);
             lock (AccountsLock)
-                AccountDB.SaveAll(_accounts);
+                AccountDB.UpdateAll(_accounts);
         }
         /// <summary>
         /// Foreach AccountData from Token storage and return AccountData
@@ -109,19 +109,11 @@ namespace BlackDesertLogin.Services
                 {
                     return null;
                 }
-                var id = 0;
                 lock (AccountsLock)
                 {
-                    for (int i = 0; i < int.MaxValue; i++)
-                    {
-                        if (!_accounts.ContainsKey(i))
-                        {
-                            id = i;
-                            break;
-                        }
-                    }
-                    acc = new AccountData { Id = id, Login = account, Password = Funcs.CalculateMd5Hash(passwd) };
+                    acc = new AccountData { Id = GUIDGenerator.NextGUID(), Login = account, Password = Funcs.CalculateMd5Hash(passwd) };
                     _accounts.Add(acc.Id, acc);
+                    AccountDB.Insert(acc);
                     Log.Info("Account '{0}' created", account);
                 }
             }

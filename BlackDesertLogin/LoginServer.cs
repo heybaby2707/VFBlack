@@ -19,6 +19,7 @@ using System;
 using System.Threading;
 using BlackDesertLogin.Network;
 using BDCommon.Utils;
+using BDCommon.Database;
 using BlackDesertLogin.Services;
 using NLog;
 
@@ -60,6 +61,7 @@ namespace BlackDesertLogin
 
         protected static void Started()
         {
+            MysqlDB.Init(new MysqlConfig("localhost", "blackemu_ls", "root", ""));
             AuthService.Init();
             LauncherService.Init();
             Server = new TcpServer("127.0.0.1", 8888, 100);

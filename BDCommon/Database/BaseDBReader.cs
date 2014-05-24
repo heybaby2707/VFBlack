@@ -30,7 +30,6 @@ namespace BDCommon.Database
             if (File.Exists(FilePath))
                 using (var fs = File.OpenRead(FilePath))
                     return Serializer.Deserialize<T>(fs);
-
             return default(T);
         }
 

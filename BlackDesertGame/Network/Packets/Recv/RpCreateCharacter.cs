@@ -1,30 +1,31 @@
 ﻿using BDCommon.Structures.Creature.Player;
+using BDCommon.Structures.Player;
+using BlackDesertGame.Services;
 
 namespace BlackDesertGame.Network.Packets.Recv
 {
     class RpCreateCharacter : ARecvPacket
     {
-        protected Zodiac Zodiac;
+        protected CharacterData CharacterData;
         public override void Read()
         {
-            Race race = (Race) ReadC(); //0x4
-            ReadC(); //0x2
-
-            string name = ReadS(); //Character name
-
-            int zeroOrnot = 58 - name.Length * 2;
-
-            byte[] zerosOrUnk = ReadB(zeroOrnot);
-
-            ReadH();//0
-            Zodiac = (Zodiac) ReadC();//11
-            ReadH();//0
-            ReadD();//1
+            CharacterData = new CharacterData();
+            CharacterData.Race = (Race) ReadC();
+            ReadC();
+            CharacterData.Name = ReadS();
+            int size = 60 - (CharacterData.Name.Length * 2);
+            ReadB(size);
+            CharacterData.Zodiac = (Zodiac) ReadC();
+            CharacterData.Face = (byte) ReadC();
+            CharacterData.Hair = (byte) ReadC();
+            CharacterData.Unk = (byte)ReadC();
+            ReadB(41);
+            CharacterData.CharacterDatas = ReadB(989);
         }
 
         public override void Process()
         {
-           
+           GameService.CreateNewCharacter(Connection, CharacterData);
         }
     }
 }

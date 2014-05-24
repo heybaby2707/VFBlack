@@ -15,8 +15,10 @@
  * along with black desert-emu. If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using BDCommon.Structures.LoginServer;
 using BDCommon.Utils;
+using BlackDesertGame.Engines.PostgreSqlEngine;
 using BlackDesertGame.Network;
 using BlackDesertGame.Services;
 using BlackDesertGame.Engines;
@@ -29,20 +31,39 @@ namespace BlackDesertGame
         protected static readonly Logger Log = LogManager.GetCurrentClassLogger();
         public static TcpServer Server;
         public static LoginService LService;
+        public static GameService GService;
+        public static PostgreSqlEngine PostgreSqlEngine;
+
+        public static bool IsWorked { get; private set; }
 
         static void Main()
         {
             LogManager.Configuration = Funcs.NLogDefaultConfiguration;
 
+            IsWorked = true;
+            try
+            {
+                Started();
+            }
+            catch (Exception e)
+            {              
+                Log.FatalException("Hyuston! We have some problem!", e);
+            }
+        }
+        private static void Started()
+        {
+            PostgreSqlEngine = new PostgreSqlEngine();
             Server = new TcpServer("127.0.0.1", 8889, 100);
             LService = new LoginService(
-                "127.0.0.1",6668,"TRUEPASSWORD", 
-                          new GsInfo(1,"NecrozEMU","127.0.0.1",8889));
+                "127.0.0.1", 6668, "TRUEPASSWORD",
+                          new GsInfo(1, "NecrozEMU", "127.0.0.1", 8889));
 
+            PostgreSqlEngine.Initilize("127.0.0.1","postgres","test");
             AdminEngine.Init();
+            GameService.Init();
+            
             LService.Start();
             Server.BeginListening();
-
         }
     }
 }
