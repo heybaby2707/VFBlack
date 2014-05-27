@@ -6,7 +6,7 @@ using BDCommon.Utils;
 
 namespace BlackDesertGame.Network.Packets.Send
 {
-    class SpCharacterList : ASendPacket
+    public class SpCharacterList : ASendPacket
     {
         protected List<Player> Players;
         protected static byte[] Data0, Data1, Data2;

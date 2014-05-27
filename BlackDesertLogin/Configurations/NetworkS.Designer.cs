@@ -8,16 +8,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BlackDesertLogin {
+namespace BlackDesertLogin.Configurations {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
-    internal sealed partial class ServicesConfigs : global::System.Configuration.ApplicationSettingsBase {
+    internal sealed partial class NetworkS : global::System.Configuration.ApplicationSettingsBase {
         
-        private static ServicesConfigs defaultInstance = ((ServicesConfigs)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new ServicesConfigs())));
+        private static NetworkS defaultInstance = ((NetworkS)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new NetworkS())));
         
-        public static ServicesConfigs Default {
+        public static NetworkS Default {
             get {
                 return defaultInstance;
             }
@@ -26,48 +26,36 @@ namespace BlackDesertLogin {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("127.0.0.1")]
-        public string LauncherService_ip {
+        public string Ip {
             get {
-                return ((string)(this["LauncherService_ip"]));
+                return ((string)(this["Ip"]));
             }
             set {
-                this["LauncherService_ip"] = value;
+                this["Ip"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("6667")]
-        public int LauncherService_port {
+        [global::System.Configuration.DefaultSettingValueAttribute("8888")]
+        public int Port {
             get {
-                return ((int)(this["LauncherService_port"]));
+                return ((int)(this["Port"]));
             }
             set {
-                this["LauncherService_port"] = value;
+                this["Port"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("6668")]
-        public int GameServicePort {
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        public int MaxConnections {
             get {
-                return ((int)(this["GameServicePort"]));
+                return ((int)(this["MaxConnections"]));
             }
             set {
-                this["GameServicePort"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("127.0.0.1")]
-        public string GameServiceIp {
-            get {
-                return ((string)(this["GameServiceIp"]));
-            }
-            set {
-                this["GameServiceIp"] = value;
+                this["MaxConnections"] = value;
             }
         }
     }

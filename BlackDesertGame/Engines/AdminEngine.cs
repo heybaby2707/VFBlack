@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BDCommon.EngineInterfaces;
+using BlackDesertGame.Handlers;
 using BlackDesertGame.Network.Protocol;
 using BDCommon.Scripts.Chat;
 using BDCommon.Scripts;
@@ -36,7 +37,7 @@ namespace BlackDesertGame.Engines
         public static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
 
-        public static readonly Dictionary<AdminCommandAttribute, Type> Commands =
+        public static Dictionary<AdminCommandAttribute, Type> Commands =
             new Dictionary<AdminCommandAttribute, Type>();
 
         private static ScriptLoader<IAdminEngine> Loader = new ScriptLoader<IAdminEngine>();
@@ -54,13 +55,42 @@ namespace BlackDesertGame.Engines
                 Log.Debug("Loaded custom command {0}", cmdAttr.Command);
                 Commands.Add(cmdAttr, t);
             }
+
+            ChatHandler.OnSendMessage += ProccesActionCommand;
         }
 
+        public static bool ProccesActionCommand(ChatMessage message)
+        {
+            if (!message.Message.StartsWith("//"))
+                return false;
+
+            string msg = message.Message.Replace("//", "");
+            string cmdName = msg.Split(' ')[0];
+            msg = msg.Replace(cmdName + " ", "");
+
+            KeyValuePair<AdminCommandAttribute, Type> kv = Commands.FirstOrDefault(p => p.Key.Command == cmdName);
+            if (kv.Value == null)
+                return false;
+
+            if (kv.Key.AccessLevel > ((Connection)message.Sender).AccountInfo.AccessLevel)
+                return false;
+
+            var command = (IAdminEngine)Activator.CreateInstance(kv.Value);
+            try
+            {
+                command.ProcessAction(message.Sender, msg);
+            }
+            catch (Exception e)
+            {
+                Log.Warn("[ADMIN ENGINE] Somethins wrong! {0}", e);
+            }
+
+            return true;
+        }
+
+        /*
         public static bool ProccesActionCommand(Connection connection, string message)
         {
-            //if (connection.AccountInfo.Login != "karyzir") //todo check access lvl
-            //    return false;
-            
             if (!message.StartsWith("//"))
                 return false;
 
@@ -70,6 +100,9 @@ namespace BlackDesertGame.Engines
 
             KeyValuePair<AdminCommandAttribute, Type> kv = Commands.FirstOrDefault(p => p.Key.Command == cmdName);
             if (kv.Value == null)
+                return false;
+
+            if (kv.Key.AccessLevel <= connection.AccountInfo.AccessLevel)
                 return false;
 
             var command = (IAdminEngine)Activator.CreateInstance(kv.Value);
@@ -84,5 +117,6 @@ namespace BlackDesertGame.Engines
 
             return true;
         }
+        */
     }
 }

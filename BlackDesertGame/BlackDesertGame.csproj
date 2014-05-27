@@ -91,9 +91,6 @@
     <None Include="Scripts\Chat\CmdTest.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\Chat\FakePacket.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <Compile Include="Services\GameService.cs" />
     <Compile Include="Services\LoginService.cs" />
   </ItemGroup>

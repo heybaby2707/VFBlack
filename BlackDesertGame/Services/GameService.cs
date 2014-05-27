@@ -69,12 +69,10 @@ namespace BlackDesertGame.Services
             lock (_playersLock)
             {
                 if (!Players.ContainsKey(connection.AccountInfo.Id))
-                {
                     Players.Add(connection.AccountInfo.Id, new List<Player>());
-                }
 
                 cached.PlayerId = GUIDGenerator.NextGUID();
-                cached.Level = 0;
+                cached.Level = 1;
                 Players[connection.AccountInfo.Id].Add(cached);
                 connection.Players.Add(cached);
             }
@@ -90,17 +88,23 @@ namespace BlackDesertGame.Services
         public static void EnterInWorld(Connection connection, int characterId)
         {
             //Jesus... TODO
-            foreach (var player in connection.Players.Where(s => s.PlayerId == characterId))
-            {
-                new SpEnterWorldResponse().Send(connection);
-                new SpUnk0E90().Send(connection);
-                new SpCharacterInfo(player).Send(connection, 1);
-                new SpUnk0Bf0().Send(connection, 1);
-                new SpUnk0BFD_1().Send(connection);
-                new SpUnk0BFD_2().Send(connection);
+            var player = connection.Players.LastOrDefault(s => s.PlayerId == characterId);
 
-                connection.CurrentPlayer = player;
+            if (player == null)
+            {
+                connection.CloseConnection();
+                return;
             }
+
+            new SpEnterWorldResponse().Send(connection);
+            new SpUnk0E90().Send(connection);
+            new SpCharacterInfo(player).Send(connection, 1);
+            new SpUnk0Bf0().Send(connection, 1);
+            new SpUnk0BFD_1().Send(connection);
+            new SpUnk0BFD_2().Send(connection);
+
+            connection.CurrentPlayer = player;
+
         }
     }
 }

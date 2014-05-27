@@ -15,14 +15,19 @@
  * along with black desert-emu. If not, see <http://www.gnu.org/licenses/>.
  */
 
-using BlackDesertGame.Engines;
+using BDCommon.Network;
 using BlackDesertGame.Network.Protocol;
 using BlackDesertGame.Network.Packets.Send;
 using BlackDesertGame.Network.Packets;
 namespace BlackDesertGame.Handlers
 {
-    class ChatHandler
+    public class ChatHandler
     {
+        public delegate bool ChatHandlerDelegate(ChatMessage msg);
+
+        public static event ChatHandlerDelegate OnSendMessage;
+
+
         public static void SendMessage(Connection con, string msg, SendMessageType sendType = SendMessageType.BROADCAST)
         {
             SendMessage(new ChatMessage(con, msg, sendType));
@@ -30,28 +35,28 @@ namespace BlackDesertGame.Handlers
 
         public static void SendMessage(ChatMessage message)
         {
-            if(!AdminEngine.ProccesActionCommand(message.Sender,message.Message))
+            //if(!AdminEngine.ProccesActionCommand(message.Sender,message.Message))
+            if (!OnSendMessage(message))
             switch (message.SendType)
             {
                 case SendMessageType.BROADCAST:
                     PacketHandler.BroadcastPacket(new SpChatMessage(message));
                     break;
                 case SendMessageType.PRIVATE:
-                    PacketHandler.SendPacket(message.Sender, new SpChatMessage(message));
+                    PacketHandler.SendPacket((Connection)message.Sender, new SpChatMessage(message));
                     break;
             }
-            
         }
     }
 
-    class ChatMessage
+    public class ChatMessage
     {
-        public Connection Sender { get; private set; }
+        public IConnection Sender { get; private set; }
         public string Message { get; private set; }
 
         public SendMessageType SendType { get; private set; }
 
-        public ChatMessage(Connection sender, string msg, SendMessageType sendType = SendMessageType.BROADCAST)
+        public ChatMessage(IConnection sender, string msg, SendMessageType sendType = SendMessageType.BROADCAST)
         {
             Sender = sender;
             Message = msg;
@@ -59,7 +64,20 @@ namespace BlackDesertGame.Handlers
         }
     }
 
-    enum SendMessageType
+    public enum MessageType : byte
+    {
+        //TODO
+        //Need check all!!!
+        SYSTEM = 1, 
+        SHOUT = 2,
+        GENERAL = 3,
+        WHISPER = 4,
+        SYSTEM2 = 5, 
+        GUILD = 6, 
+        GROUP = 7 
+    }
+
+    public enum SendMessageType
     {
         PRIVATE,
         BROADCAST

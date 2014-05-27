@@ -30,8 +30,6 @@ namespace BDCommon.Database
                     AuthResult = false;
                 }
             }
-
-
             if (AuthResult)
             {
                 Auth = auth;

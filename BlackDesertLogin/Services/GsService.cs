@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using BDCommon.Network.Contracts;
 using BDCommon.Structures.LoginServer;
 using BDCommon.Structures.Player;
+using BlackDesertLogin.Configurations;
 using Hik.Communication.Scs.Communication.EndPoints.Tcp;
 using Hik.Communication.ScsServices.Service;
 using NLog;

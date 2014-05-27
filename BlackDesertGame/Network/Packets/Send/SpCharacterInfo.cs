@@ -4,7 +4,7 @@ using BDCommon.Structures.Player;
 
 namespace BlackDesertGame.Network.Packets.Send
 {
-    class SpCharacterInfo : ASendPacket
+    public class SpCharacterInfo : ASendPacket
     {
         private static string _data, _data1, _data11, _data12, _data13, _data2;
         protected Player PlayerData;
@@ -12,8 +12,8 @@ namespace BlackDesertGame.Network.Packets.Send
         {
             PlayerData = playerData;
             _data = "010000" +
-                   "000100003C2D0000189EC600207EC500" +
-                   "CC9847046788BE0000000080BF763F";
+                     "000100003C2D0000189EC600207EC500" +
+                     "CC9847046788BE0000000080BF763F";
             _data1 = "0001000000E700000058FAFFFFFFFFFF" +
                     "FF58FAFFFFFFFFFFFF58FAFFFFFFFFFF" +
                     "FF02946DE49500000000000000000000" +
@@ -36,7 +36,7 @@ namespace BlackDesertGame.Network.Packets.Send
             _data13 = "010000001000000090000080040012" +
                      "000000B4000009000000000009000000" +
                      "0000";
-            _data2 = "00000300000069290000" +
+           _data2 = "00000300000069290000" +
                     "3000CD29000032000000000000000000" +
                     "00000000000000000000000000000000" +
                     "00000000000000000000000000000000" +

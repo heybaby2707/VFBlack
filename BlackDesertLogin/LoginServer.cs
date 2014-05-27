@@ -17,6 +17,7 @@
 
 using System;
 using System.Threading;
+using BlackDesertLogin.Configurations;
 using BlackDesertLogin.Network;
 using BDCommon.Utils;
 using BDCommon.Database;
@@ -61,10 +62,10 @@ namespace BlackDesertLogin
 
         protected static void Started()
         {
-            MysqlDB.Init(new MysqlConfig("localhost", "blackemu_ls", "root", ""));
+            MysqlDB.Init(new MysqlConfig(MysqlS.Default.Host, MysqlS.Default.Database, MysqlS.Default.User, MysqlS.Default.Password));
             AuthService.Init();
             LauncherService.Init();
-            Server = new TcpServer("127.0.0.1", 8888, 100);
+            Server = new TcpServer(NetworkS.Default.Ip, NetworkS.Default.Port, NetworkS.Default.MaxConnections);
             GameBridgeService = new GsService();
 
             GameBridgeService.Init("TRUEPASSWORD");

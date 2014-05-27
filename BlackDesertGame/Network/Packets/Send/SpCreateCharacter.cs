@@ -26,7 +26,7 @@ using BlackDesertGame.Network.Protocol;
 
 namespace BlackDesertGame.Network.Packets.Send
 {
-    class SpCreateCharacter : ASendPacket
+    public class SpCreateCharacter : ASendPacket
     {
         protected static string Data1, Data2;
         protected Player PlayerData;

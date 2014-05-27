@@ -52,17 +52,15 @@ namespace BlackDesertGame
         }
         private static void Started()
         {
-            PostgreSqlEngine = new PostgreSqlEngine();
             Server = new TcpServer("127.0.0.1", 8889, 100);
             LService = new LoginService(
                 "127.0.0.1", 6668, "TRUEPASSWORD",
                           new GsInfo(1, "NecrozEMU", "127.0.0.1", 8889));
 
-            PostgreSqlEngine.Initilize("127.0.0.1","postgres","test");
             AdminEngine.Init();
             GameService.Init();
-            
             LService.Start();
+
             Server.BeginListening();
         }
     }

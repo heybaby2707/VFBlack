@@ -2,7 +2,7 @@
 
 namespace BlackDesertGame.Network.Packets.Send
 {
-    class SpUnk0E90 : ASendPacket
+    public class SpUnk0E90 : ASendPacket
     {
         public override void Write(BinaryWriter writer)
         {

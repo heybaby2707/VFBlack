@@ -16,6 +16,7 @@
  */
 
 using BDCommon.Network.Contracts;
+using BlackDesertLogin.Configurations;
 using Hik.Communication.Scs.Communication.EndPoints.Tcp;
 using Hik.Communication.ScsServices.Service;
 using NLog;
