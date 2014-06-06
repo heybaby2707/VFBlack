@@ -1,4 +1,4 @@
-﻿using BlackDesertGame.Services;
+﻿using BlackDesertGame.Services.PlayerService;
 
 namespace BlackDesertGame.Network.Packets.Recv
 {
@@ -15,7 +15,7 @@ namespace BlackDesertGame.Network.Packets.Recv
 
         public override void Process()
         {
-            GameService.EnterInWorld(Connection, CharacterId);
+            PlayerWorldService.EnterInWorld(Connection, CharacterId);
         }
     }
 }

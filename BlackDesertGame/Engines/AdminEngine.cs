@@ -72,7 +72,7 @@ namespace BlackDesertGame.Engines
             if (kv.Value == null)
                 return false;
 
-            if (kv.Key.AccessLevel > ((Connection)message.Sender).AccountInfo.AccessLevel)
+            if (kv.Key.AccessLevel > ((Connection)message.Sender.Connection).AccountInfo.AccessLevel)
                 return false;
 
             var command = (IAdminEngine)Activator.CreateInstance(kv.Value);

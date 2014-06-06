@@ -19,6 +19,7 @@ using System;
 using BDCommon.EngineInterfaces;
 using BDCommon.Network;
 using BDCommon.Scripts.Chat;
+using BDCommon.Structures.Player;
 using BlackDesertGame.Handlers;
 using BlackDesertGame.Network.Packets.Send;
 using NLog;
@@ -34,17 +35,11 @@ namespace BlackDesertGame.Scripts.Chat
     {
         public static readonly Logger Log = LogManager.GetCurrentClassLogger();
         //Example Command
-        public void ProcessAction(IConnection connection, string message)
+        public void ProcessAction(Player player, string message)
         {
             try
             {
-                string[] splited = message.Split(':');
-                byte type = Convert.ToByte(splited[0]);
-                short subType = Convert.ToInt16(splited[1]);
-                string name = splited[2];
-                string msg = splited[3];
-
-                new SpChatMessage(new ChatMessage(connection, msg), type, subType, name).Send(connection);
+                
             }
             catch (Exception)
             {

@@ -18,10 +18,11 @@
 using System;
 using BDCommon.Structures.LoginServer;
 using BDCommon.Utils;
-using BlackDesertGame.Engines.PostgreSqlEngine;
+using BlackDesertGame.Managers.Tasks;
 using BlackDesertGame.Network;
 using BlackDesertGame.Services;
 using BlackDesertGame.Engines;
+using BlackDesertGame.Services.PlayerService;
 using NLog;
 
 namespace BlackDesertGame
@@ -29,17 +30,16 @@ namespace BlackDesertGame
     class GameServer
     {
         protected static readonly Logger Log = LogManager.GetCurrentClassLogger();
+
         public static TcpServer Server;
         public static LoginService LService;
-        public static GameService GService;
-        public static PostgreSqlEngine PostgreSqlEngine;
 
         public static bool IsWorked { get; private set; }
 
         static void Main()
         {
             LogManager.Configuration = Funcs.NLogDefaultConfiguration;
-
+           
             IsWorked = true;
             try
             {
@@ -48,6 +48,7 @@ namespace BlackDesertGame
             catch (Exception e)
             {              
                 Log.FatalException("Hyuston! We have some problem!", e);
+                Console.Read();
             }
         }
         private static void Started()
@@ -56,10 +57,11 @@ namespace BlackDesertGame
             LService = new LoginService(
                 "127.0.0.1", 6668, "TRUEPASSWORD",
                           new GsInfo(1, "NecrozEMU", "127.0.0.1", 8889));
+            LService.Start();
 
             AdminEngine.Init();
-            GameService.Init();
-            LService.Start();
+            PlayerService.Init();
+            TaskManager.Init();
 
             Server.BeginListening();
         }

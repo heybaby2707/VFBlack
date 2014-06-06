@@ -15,11 +15,11 @@
  * along with black desert-emu. If not, see <http://www.gnu.org/licenses/>.
  */
 using System;
-using System.Collections.Generic;
 using BDCommon.Network.Contracts;
 using BDCommon.Structures.LoginServer;
 using BDCommon.Structures.Player;
 using BlackDesertGame.Network.Protocol;
+using BlackDesertGame.Services.PlayerService;
 using Hik.Communication.Scs.Communication;
 using Hik.Communication.Scs.Communication.EndPoints.Tcp;
 using Hik.Communication.ScsServices.Client;
@@ -121,14 +121,7 @@ namespace BlackDesertGame.Services
             }
 
             conn.AccountInfo = accData;
-            if (GameService.Players.ContainsKey(conn.AccountInfo.Id))
-            {
-                conn.Players = GameService.Players[conn.AccountInfo.Id];
-                GameService.SendCharacterList(conn);
-                return;
-            }
-            conn.Players = new List<Player>();
-            GameService.SendCharacterList(conn);
+            PlayerWorldService.SendCharacterList(conn);
         }
     }
 }

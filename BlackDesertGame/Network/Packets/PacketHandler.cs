@@ -39,8 +39,9 @@ namespace BlackDesertGame.Network.Packets
             {0x0bc0, typeof(RpAuthorize)},
             {0x0BE0, typeof(RpEnterWorld)},
             {0x0BF4, typeof(RpCreateCharacter)},
-            {0x0D56, typeof(RpChatMessage)}
-         
+            {0x0D56, typeof(RpChatMessage)},
+            {0x0D57, typeof(RpWhisperMessage)},
+            {0x0BC9, typeof(RpExit)},      
         };
         public static Dictionary<Type, ushort> Send = new Dictionary<Type, ushort>
         {
@@ -53,6 +54,7 @@ namespace BlackDesertGame.Network.Packets
             {typeof (SpUnk0BFD_2), 0x0BFD},
             {typeof (SpChatMessage), 0x0D5A},
             {typeof (SpCreateCharacter), 0x0BF5},
+            {typeof (SpFailCreateCharacter), 0x0BF6},
         };
 
 

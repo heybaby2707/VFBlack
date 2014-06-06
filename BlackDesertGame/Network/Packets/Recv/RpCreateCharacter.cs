@@ -1,6 +1,6 @@
 ﻿using BDCommon.Structures.Creature.Player;
 using BDCommon.Structures.Player;
-using BlackDesertGame.Services;
+using BlackDesertGame.Services.PlayerService;
 
 namespace BlackDesertGame.Network.Packets.Recv
 {
@@ -25,7 +25,7 @@ namespace BlackDesertGame.Network.Packets.Recv
 
         public override void Process()
         {
-           GameService.CreateNewCharacter(Connection, CharacterData);
+           PlayerService.CreateNewCharacter(Connection, CharacterData);
         }
     }
 }

@@ -28,16 +28,17 @@ namespace BDCommon.Scripts
     public class ScriptLoader<T>
     {
         protected static readonly Logger Log = LogManager.GetCurrentClassLogger();
-        protected ICodeCompiler icc = new Microsoft.CSharp.CSharpCodeProvider().CreateCompiler();
+        protected ICodeCompiler Icc = new Microsoft.CSharp.CSharpCodeProvider().CreateCompiler();
 
-        public Type LoadScript(string FilePath)
+        public Type LoadScript(string filePath)
         {
-            CompilerResults cr = icc.CompileAssemblyFromFile(
+            CompilerResults cr = Icc.CompileAssemblyFromFile(
                 new CompilerParameters(
-                    new string[]
+                    new[]
                     {
                         "System.Data.dll",
                         "System.XML.dll",
+                        "System.Linq.dll",
                         "System.Drawing.dll",
                         "System.dll",
                         "BDCommon.dll",
@@ -45,16 +46,22 @@ namespace BDCommon.Scripts
                         "BlackDesertGame.exe"
                     },
                     null,
-                    true), FilePath);
+                    true), filePath);
 
             if (cr.Errors != null && cr.Errors.Count > 0)
+            {
+                foreach (CompilerError error in cr.Errors)
+                {
+                    Log.Error("Error load command {0} in line {2}"+ Environment.NewLine +"{1}", error.FileName, error.ErrorText, error.Line);
+                }
                 return null;
-   
+            }
+
             Type[] types = cr.CompiledAssembly.GetTypes();
             Type[] interfaces = types[0].GetInterfaces();
             if (interfaces.Length < 1)
             {
-                Log.Error("Script type not found in {0}", FilePath);
+                Log.Error("Script type not found in {0}", filePath);
                 return null;
             }
             if (interfaces[0] == typeof (T))

@@ -1,4 +1,5 @@
 ﻿using System;
+using BDCommon.Network;
 
 namespace BDCommon.Structures.Player
 {
@@ -13,5 +14,7 @@ namespace BDCommon.Structures.Player
          public CharacterData CharacterData;
          [ProtoBuf.ProtoMember(4)]
          public int Level;
+
+         public IConnection Connection { get; set; }
     }
 }

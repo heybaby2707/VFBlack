@@ -11,18 +11,17 @@ namespace BlackDesertGame.Database
     {
         const string FileDb = "Players.cache";
 
-        public static Dictionary<int,List<Player>> LoadAll()
+        public static List<Player> LoadAll()
         {
-            Dictionary<int, List<Player>> players = DeserializeFile<Dictionary<int, List<Player>>>(FileDb);
+            List<Player> players = DeserializeFile<List<Player>>(FileDb);
             if (players != null)
             {
-                int maxID = players.Select(a => a.Value.Max(p => p.PlayerId)).Max();
-                GUIDGenerator.SetGUID(maxID);
+                GUIDGenerator.SetGUID(players.Max(p => p.PlayerId));
             }
-            return players ?? new Dictionary<int, List<Player>>();
+            return players ?? new List<Player>();
         }
 
-        public static void SaveAll(Dictionary<int, List<Player>> players)
+        public static void SaveAll(List<Player> players)
         {
             SerializeFile(FileDb, players);
         }

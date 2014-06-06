@@ -14,7 +14,7 @@ namespace BlackDesertGame.Network.Packets.Send
             _data = "010000" +
                      "000100003C2D0000189EC600207EC500" +
                      "CC9847046788BE0000000080BF763F";
-            _data1 = "0001000000E700000058FAFFFFFFFFFF" +
+            _data1 = "0001000000FA00000058FAFFFFFFFFFF" +
                     "FF58FAFFFFFFFFFFFF58FAFFFFFFFFFF" +
                     "FF02946DE49500000000000000000000" +
                     "00000000000003000000000000000000" +

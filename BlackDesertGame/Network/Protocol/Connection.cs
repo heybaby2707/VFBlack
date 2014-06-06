@@ -33,7 +33,6 @@ namespace BlackDesertGame.Network.Protocol
         public IScsServerClient Client { get; set; }
         public bool IsValid { get; private set; }
         public AccountData AccountInfo { get; set; }
-        public List<Player> Players;
         protected List<byte[]> SendData = new List<byte[]>();
 
         public Player CurrentPlayer { get; set; }
@@ -62,7 +61,7 @@ namespace BlackDesertGame.Network.Protocol
 
         void Client_Disconnected(object sender, EventArgs e)
         {
-      
+              
         }
         public void CloseConnection(bool force = false)
         {

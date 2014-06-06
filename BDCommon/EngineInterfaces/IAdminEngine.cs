@@ -1,9 +1,9 @@
-﻿using BDCommon.Network;
+﻿using BDCommon.Structures.Player;
 
 namespace BDCommon.EngineInterfaces
 {
     public interface IAdminEngine
     {
-        void ProcessAction(IConnection connection, string message);
+        void ProcessAction(Player connection, string message);
     }
 }

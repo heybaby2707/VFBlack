@@ -6,7 +6,8 @@ namespace BlackDesertGame.Network.Packets.Send
     {
         public override void Write(BinaryWriter writer)
         {
-            string datas = ("21000800C16FF286230003"
+            string datas = (
+                            "21000800C16FF286230003"
 				+ "000000010000000000C16FF286230006"
 				+ "000000010000000900C16FF286230003"
 				+ "000000000000000100C16FF286230004"
